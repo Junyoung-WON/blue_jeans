@@ -14,26 +14,6 @@ void main() => runApp(MaterialApp(
       home: LoadingScreen(),
     ));
 
-class MyCheckBox extends StatefulWidget {
-  MyCheckBox({super.key});
-  State<MyCheckBox> createState() => _CheckBox();
-}
-
-class _CheckBox extends State<MyCheckBox> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-        value: isChecked,
-        onChanged: (bool? value) {
-          setState(() {
-            isChecked = value!;
-          });
-        });
-  }
-}
-
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 

@@ -21,12 +21,12 @@ class ClientSocket with ChangeNotifier {
   late Socket clntSocket;
   late List<dynamic> userList = [''];
 
-  late List options = [''];
+  late List options = ['', ''];
 
   late List<dynamic> losers = [''];
   late String loserStr = '';
   late String penalty = '';
-  late var score;
+  late var score = {};
 
   List<dynamic> getUserList() {
     return userList;
@@ -142,6 +142,7 @@ class ClientSocket with ChangeNotifier {
         //밸런스게임 선택지 받기
         print(response);
         options = response['option'];
+        notifyListeners();
       });
       print('go to the BalanceGame');
       Navigator.push(context,
@@ -160,8 +161,9 @@ class ClientSocket with ChangeNotifier {
       loserStr = response['losers'];
       penalty = response['penalty'];
       score = response['score'];
-
+      print('score in socket : $score');
       notifyListeners();
+      score = {};
     });
   }
 
@@ -172,19 +174,26 @@ class ClientSocket with ChangeNotifier {
       print('losers : ${response['losers']}');
       print('penalty : ${response['penalty']}');
       print('score : ${response['score']}');
-      losers = response['losers'];
+
+      if (response['losers'].runtimeType == String) {
+        loserStr = response['losers'];
+        print('loserStr : $loserStr');
+      } else {
+        losers = response['losers'];
+        for (int i = 0; i < losers.length; i++) {
+          loserStr += losers[i];
+          if (i != losers.length - 1) {
+            loserStr += ', ';
+          }
+        }
+        print('loserStr : $loserStr');
+      }
       penalty = response['penalty'];
       score = response['score'];
 
-      for (int i = 0; i < losers.length; i++) {
-        loserStr += losers[i];
-        if (i != losers.length - 1) {
-          loserStr += ', ';
-        }
-      }
-      print('loserStr : $loserStr');
-
       notifyListeners();
+
+      score = {};
     });
   }
 }

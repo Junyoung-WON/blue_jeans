@@ -9,7 +9,7 @@ const blue = Color.fromARGB(255, 42, 47, 209);
 
 class WaitingRoom extends StatefulWidget {
   final String roomId;
-  final List<String> gameList = ['터치 게임', '밸런스 게임', '폭탄 돌리기', '무작위 게임'];
+  final List<String> gameList = ['터치 게임', '폭탄 돌리기', '밸런스 게임', '무작위 게임'];
   final ClientSocket websocket;
   final bool isCaptain;
 
