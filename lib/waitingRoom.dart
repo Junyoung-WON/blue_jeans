@@ -7,6 +7,8 @@ const background = Color.fromARGB(255, 1, 125, 125);
 const gray = Color.fromRGBO(192, 192, 192, 1);
 const blue = Color.fromARGB(255, 42, 47, 209);
 
+var ISCAPTAIN;
+
 class WaitingRoom extends StatefulWidget {
   final String roomId;
   final List<String> gameList = ['터치 게임', '폭탄 돌리기', '밸런스 게임', '무작위 게임'];
@@ -35,6 +37,9 @@ class WaitingRoomState extends State<WaitingRoom> {
     print("in WaitingRoom");
     print("initstate");
     print("widget.websocket.hashCode : ${widget.websocket.hashCode}");
+    print('widget.isCaptain : ${widget.isCaptain}');
+    ISCAPTAIN = widget.isCaptain;
+    print('ISCAPTAIN : $ISCAPTAIN');
   }
 
   @override
@@ -124,7 +129,7 @@ class WaitingRoomState extends State<WaitingRoom> {
                                         children: [
                                           Text(userList[index],
                                               style: TextStyle(
-                                                  fontSize: 25,
+                                                  fontSize: 18,
                                                   fontFamily: 'Retro')),
                                           Visibility(
                                             visible: widget.isCaptain,
@@ -185,7 +190,7 @@ class WaitingRoomState extends State<WaitingRoom> {
                                   children: [
                                     Text(widget.gameList[index],
                                         style: TextStyle(
-                                            fontSize: 25, fontFamily: 'Retro')),
+                                            fontSize: 18, fontFamily: 'Retro')),
                                     Visibility(
                                       visible: widget.isCaptain,
                                       child: Radio<int>(

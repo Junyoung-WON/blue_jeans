@@ -1,9 +1,7 @@
 import 'package:blue_jeans/main.dart' as main;
 import 'package:blue_jeans/resultScreen.dart';
 import 'package:blue_jeans/socketIoClnt.dart';
-import 'package:blue_jeans/waitingRoom.dart';
 import 'package:flutter/material.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 class TouchGame extends StatefulWidget {
   final ClientSocket socket;

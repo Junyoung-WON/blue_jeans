@@ -204,57 +204,69 @@ class CreateRoomScreenState extends State<CreateRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/createRoom.png'), fit: BoxFit.fill),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 300.0),
-          child: Container(
-            child: Column(children: [
-              RichText(
-                text: TextSpan(text: ""),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: TextField(
-                      controller: nicknameTEC,
-                      decoration: InputDecoration(
-                          hintText: '닉네임을 입력하세요.',
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(
-                                color: Colors.black45,
-                                width: 3,
-                              ))))),
-              Flexible(
-                  child: InkWell(
-                      child: Image.asset(
-                        'assets/confirmButton.png',
-                        width: 150,
-                        height: 80,
-                      ),
-                      onTap: () {
-                        nickname = nicknameTEC.text;
-                        String roomId = randomRoomId();
-                        // print(nickname);
-                        // print(roomId);
-                        var data = User(name: nickname, roomId: roomId);
-                        ClientSocket socket = ClientSocket(context);
-                        socket.creatingRoomReq(data);
-                        // print("MainScreen\nsocket.hashCode : ${socket.hashCode}");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WaitingRoom(
-                                      roomId: roomId,
-                                      websocket: socket,
-                                      isCaptain: true,
-                                    )));
-                      }))
-            ]),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/createRoom.png'), fit: BoxFit.fill),
+      ),
+      child: Container(
+        padding: const EdgeInsets.only(top: 300.0),
+        child: Column(children: [
+          RichText(
+            text: TextSpan(text: ""),
           ),
-        ));
+          Padding(
+              padding: const EdgeInsets.all(5),
+              child: TextField(
+                maxLength: 6,
+                style: TextStyle(
+                  fontFamily: 'Retro',
+                  fontSize: 20,
+                ),
+                controller: nicknameTEC,
+                decoration: InputDecoration(
+                    counterText: '',
+                    hintText: '닉네임을 입력하세요.',
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.zero,
+                        borderSide: BorderSide(
+                          color: Colors.black45,
+                          width: 3,
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.zero,
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          width: 3,
+                        ))),
+              )),
+          Flexible(
+              child: InkWell(
+                  child: Image.asset(
+                    'assets/confirmButton.png',
+                    width: 150,
+                    height: 80,
+                  ),
+                  onTap: () {
+                    nickname = nicknameTEC.text;
+                    String roomId = randomRoomId();
+                    // print(nickname);
+                    // print(roomId);
+                    var data = User(name: nickname, roomId: roomId);
+                    ClientSocket socket = ClientSocket(context);
+                    socket.creatingRoomReq(data);
+                    // print("MainScreen\nsocket.hashCode : ${socket.hashCode}");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WaitingRoom(
+                                  roomId: roomId,
+                                  websocket: socket,
+                                  isCaptain: true,
+                                )));
+                  }))
+        ]),
+      ),
+    );
   }
 }
 
@@ -301,13 +313,14 @@ class JoinRoomScreenState extends State<JoinRoomScreen> {
                         children: [
                           Expanded(
                             child: TextField(
+                              maxLength: 6,
                               style: TextStyle(
                                 fontFamily: 'Retro',
                                 fontSize: 20,
                               ),
                               controller: nicknameTEC,
                               decoration: InputDecoration(
-                                  hintText: '별명을 입력하세요.',
+                                  hintText: '닉네임을 입력하세요.',
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.zero,
                                       borderSide: BorderSide(
@@ -334,12 +347,14 @@ class JoinRoomScreenState extends State<JoinRoomScreen> {
                         children: [
                           Expanded(
                             child: TextField(
+                              maxLength: 8,
                               style: TextStyle(
                                 fontFamily: 'Retro',
                                 fontSize: 20,
                               ),
                               controller: roomIdTEC,
                               decoration: InputDecoration(
+                                  counterText: '',
                                   hintText: '방 코드를 입력하세요.',
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.zero,

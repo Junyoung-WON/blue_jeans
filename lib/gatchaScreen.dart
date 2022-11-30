@@ -1,7 +1,8 @@
 
 import 'package:blue_jeans/socketIoClnt.dart';
+import 'package:blue_jeans/waitingRoom.dart';
 import 'package:flutter/material.dart';
-import 'package:blue_jeans/main.dart';
+import 'package:blue_jeans/main.dart' as main;
 import 'package:blue_jeans/penaltyGatcha.dart';
 import 'package:blue_jeans/resultScreen.dart';
 
@@ -13,7 +14,7 @@ class GatchaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: gray,
+      backgroundColor: main.gray,
       body: SafeArea(
         child: Column(
           children: [
@@ -26,22 +27,24 @@ class GatchaScreen extends StatelessWidget {
                       fit: BoxFit.fill)),
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 500),
-                    child: InkWell(
-                      child: Image.asset(
-                        'assets/gatchaButton.png',
-                        height: 250,
-                        width: 150,
+                  Visibility(
+                    visible: ISCAPTAIN,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 500),
+                      child: InkWell(
+                        child: Image.asset(
+                          'assets/gatchaButton.png',
+                          height: 250,
+                          width: 150,
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PenaltyGatcha(socket: socket,)));
+                        },
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PenaltyGatcha(socket: socket,)));
-                      },
                     ),
                   )
                 ],

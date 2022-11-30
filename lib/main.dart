@@ -9,6 +9,7 @@ import 'package:blue_jeans/popup_screen.dart';
 const background = Color.fromARGB(255, 1, 125, 125);
 const gray = Color.fromRGBO(192, 192, 192, 1);
 const blue = Color.fromARGB(255, 42, 47, 209);
+
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoadingScreen(),

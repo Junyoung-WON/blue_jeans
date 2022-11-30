@@ -18,7 +18,3 @@ class User {
     };
   }
 }
-
-class ScoreResult {
-
-}

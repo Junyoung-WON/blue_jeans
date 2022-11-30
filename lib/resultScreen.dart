@@ -21,7 +21,6 @@ class ResultScreenState extends State<ResultScreen> {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 5), () {
       Navigator.pop(context);
-
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -48,6 +47,7 @@ class ResultScreenState extends State<ResultScreen> {
                       padding:
                           const EdgeInsets.only(top: 260, left: 100, right: 80),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             "탈  락",
@@ -81,29 +81,40 @@ class ResultScreenState extends State<ResultScreen> {
                             ),
                             textAlign: TextAlign.center,
                           ),
+                          SizedBox(
+                            height: 50,
+                          ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 200,
-                              height: 300,
-                              child: Consumer<ClientSocket>(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Consumer<ClientSocket>(
                                 builder: (context, value, child) {
-                                  //점수를 보여주는 텍스트
-                                  return ListView.builder(
-                                      itemCount: value.score.length,
-                                      itemBuilder: (context, index) {
-                                        return Text(
-                                          '${value.userList[index]} : ${value.score[value.userList[index]]}',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'Retro',
-                                          ),
-                                        );
-                                      });
-                                },
+                                  //폭탄게임일 경우, 폭발 이미지 출력
+                                  if (value.score.isEmpty) {
+                                    return SizedBox(
+                                      width: 200,
+                                      height: 200,
+                                      child: Image.asset(
+                                        'assets/bombEffect.png',
+                                        ));
+                                  }
+                                  //터치게임, 밸런스게임 결과를 출력
+                                  return SizedBox(
+                                      width: 200,
+                                      height: 200,
+                                      child: ListView.builder(
+                                        itemCount: value.score.length,
+                                        itemBuilder: (context, index) {
+                                          return Text(
+                                            '${value.userList[index]} : ${value.score[value.userList[index]]}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontFamily: 'Retro',
+                                              ),
+                                            );
+                                          }));
+                                  },
                               ),
                             ),
-                          ),
                         ],
                       ),
                     )
